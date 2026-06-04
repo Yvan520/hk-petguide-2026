@@ -1,5 +1,5 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://berty.gamewayz.com/sitemap.xml
+Sitemap: https://pethome.gamewayz.com/sitemap.xml
 

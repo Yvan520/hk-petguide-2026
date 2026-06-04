@@ -14,8 +14,7 @@ ro3-guide/
 storycraft-deploy/
 sunnyhk/
 tarkov/
-tl-nexus/dist/
-tl-nexus/node_modules/
+tl-nexus*/
 *.tar.gz
 *.wav
 .DS_Store
