@@ -20,3 +20,12 @@ tl-nexus*/
 .DS_Store
 .gstack/
 .gstack/
+news/
+images/
+game-*.html
+cards.html
+修仙*
+连接树莓派*
+wifi-auto.service
+package.json
+package-lock.json
