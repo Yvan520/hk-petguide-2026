@@ -39,4 +39,10 @@
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
+  <url>
+    <loc>https://pethome.gamewayz.com/article-dog-joint-health.html</loc>
+    <lastmod>2026年06月05日</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
 </urlset>
