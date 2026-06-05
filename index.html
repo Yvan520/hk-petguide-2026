@@ -1323,7 +1323,159 @@ section { position: relative; z-index: 2; }
 }
 
 
+
+/* ===== PLACE MODAL ===== */
+.place-modal {
+  position: fixed; inset: 0; z-index: 9999;
+  display: none; align-items: center; justify-content: center;
+  padding: 20px;
+}
+.place-modal.active { display: flex; }
+.place-modal-overlay {
+  position: absolute; inset: 0;
+  background: rgba(26, 23, 20, 0.65);
+  backdrop-filter: blur(8px);
+  animation: fadeIn 0.3s ease;
+}
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.place-modal-content {
+  position: relative; z-index: 1;
+  width: 100%; max-width: 720px; max-height: 90vh;
+  background: var(--cream);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.4);
+  display: flex; flex-direction: column;
+  animation: modalIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+@keyframes modalIn {
+  from { opacity: 0; transform: translateY(40px) scale(0.95); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+.modal-close {
+  position: absolute; top: 16px; right: 16px; z-index: 10;
+  width: 40px; height: 40px;
+  background: rgba(255,255,255,0.9);
+  border: none; border-radius: 50%;
+  font-size: 24px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--charcoal);
+  transition: all 0.2s;
+  font-family: inherit; line-height: 1;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+.modal-close:hover { background: var(--coral); color: white; transform: rotate(90deg); }
+.modal-body { overflow-y: auto; flex: 1; }
+.modal-body::-webkit-scrollbar { width: 6px; }
+.modal-body::-webkit-scrollbar-thumb { background: var(--coral); border-radius: 3px; }
+
+.modal-hero {
+  display: flex; align-items: center; gap: 20px;
+  padding: 32px; color: white;
+}
+.modal-hero-icon {
+  font-size: 56px; line-height: 1;
+  width: 96px; height: 96px;
+  background: rgba(255,255,255,0.2);
+  border-radius: 20px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.modal-hero-content h2 {
+  font-size: 26px; font-weight: 800; margin-bottom: 8px;
+  line-height: 1.2; text-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+.modal-hero-meta { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.modal-tag {
+  padding: 4px 12px; background: rgba(255,255,255,0.25);
+  border-radius: 50px; font-size: 13px; font-weight: 600;
+  backdrop-filter: blur(10px);
+}
+.modal-rating { font-size: 13px; font-weight: 500; }
+
+.modal-grid {
+  padding: 28px;
+  display: grid; gap: 24px;
+}
+.modal-section h3 {
+  font-size: 16px; font-weight: 700; color: var(--charcoal);
+  margin-bottom: 12px; display: flex; align-items: center; gap: 6px;
+}
+.modal-info-list {
+  display: grid; gap: 10px;
+  background: white; border-radius: 12px; padding: 16px;
+}
+.modal-info-item {
+  display: grid; grid-template-columns: 110px 1fr;
+  gap: 12px; font-size: 14px;
+  padding-bottom: 10px; border-bottom: 1px solid #f5ebe1;
+}
+.modal-info-item:last-child { border-bottom: none; padding-bottom: 0; }
+.info-label { color: #888; font-weight: 500; }
+.info-value { color: var(--charcoal); font-weight: 500; word-break: break-word; }
+
+.modal-full-desc {
+  font-size: 15px; line-height: 1.75; color: #444;
+  margin-bottom: 12px;
+}
+.modal-bestfor {
+  font-size: 14px; color: var(--charcoal);
+  padding: 12px 16px;
+  background: linear-gradient(135deg, #FFE8DC, #FFD9C8);
+  border-radius: 12px; border-left: 4px solid var(--coral);
+}
+
+.modal-facilities, .modal-rules, .modal-tips {
+  list-style: none; padding: 0; margin: 0;
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 8px;
+}
+.modal-facilities li, .modal-rules li, .modal-tips li {
+  padding: 10px 14px; background: white;
+  border-radius: 10px; font-size: 13px; color: #444;
+  line-height: 1.5; border: 1px solid #f0e5da;
+}
+.modal-tips li {
+  background: linear-gradient(135deg, #FFF8F3, #FFE8DC);
+  border-color: rgba(255, 107, 90, 0.2);
+}
+
+.modal-actions {
+  display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px;
+}
+.modal-action-btn {
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+  padding: 14px 12px; border-radius: 12px;
+  font-size: 13px; font-weight: 600;
+  text-decoration: none; border: none; cursor: pointer;
+  font-family: inherit;
+  transition: all 0.2s;
+}
+.modal-action-gmaps { background: var(--coral); color: white; }
+.modal-action-gmaps:hover { background: #FF5544; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(255,107,90,0.35); }
+.modal-action-share { background: #25D366; color: white; }
+.modal-action-share:hover { background: #1FB855; transform: translateY(-2px); }
+.modal-action-save { background: white; color: var(--charcoal); border: 1.5px solid #E5DDD3; }
+.modal-action-save:hover { border-color: var(--coral); color: var(--coral); }
+
+.place-cta {
+  display: inline-block; margin-top: 8px;
+  font-size: 13px; color: var(--coral); font-weight: 600;
+}
+.place-item { cursor: pointer; }
+
+@media (max-width: 600px) {
+  .place-modal { padding: 0; }
+  .place-modal-content { max-height: 100vh; border-radius: 0; }
+  .modal-hero { padding: 24px 20px; }
+  .modal-hero-content h2 { font-size: 22px; }
+  .modal-hero-icon { font-size: 40px; width: 72px; height: 72px; }
+  .modal-grid { padding: 20px; }
+  .modal-info-item { grid-template-columns: 90px 1fr; font-size: 13px; }
+  .modal-actions { grid-template-columns: 1fr; }
+}
 </style>
+
 </head>
 <body>
 
@@ -1681,66 +1833,199 @@ section { position: relative; z-index: 2; }
   </div>
 </section>
 
+
+<!-- PLACE DETAIL MODAL -->
+<div class="place-modal" id="placeModal" role="dialog" aria-modal="true" aria-hidden="true">
+  <div class="place-modal-overlay"></div>
+  <div class="place-modal-content">
+    <button class="modal-close" aria-label="關閉">×</button>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
 <script>
 // HK Pet-Friendly Places data
+// HK Pet-Friendly Places data (extended)
 const hkPlaces = [
   // 港島
   { id:'central', name:'中環海濱活動空間', region:'hki', district:'中西區', type:'海濱', icon:'🌊', tag:'大型狗 OK',
-    addr:'中環龍和道9號', desc:'維港海旁全開放式空間，毛孩可以放繩跑，假日人氣 pet-friendly 熱點。',
-    hours:'24小時開放', tip:'建議平日黃昏去，較少人。' },
+    addr:'中環龍和道9號', gmaps:'https://maps.google.com/?q=中環海濱活動空間',
+    desc:'維港海旁全開放式空間，毛孩可以放繩跑，假日人氣 pet-friendly 熱點。',
+    fullDesc:'位於中環核心地帶嘅海濱長廊，面積超過 4 公頃，係全港最大型嘅戶外寵物放電場之一。維多利亞港景色作為背景，加上寬闊草地同緩跑徑，係好多狗主嘅周末首選。場內設有寵物飲水設施同基本清潔設備。',
+    facilities:['大型放繩區','飲水設施','緩跑徑','基本洗手間','海景打卡位','蔭涼休息區'],
+    rules:['大型狗需佩戴口罩(只限部分時段)','必須清理寵物排泄物','禁止商業活動','夜間照明有限請注意安全'],
+    tips:['平日黃昏人少狗多，係最佳時段','帶摺椅野餐都 OK','夏天正午太曬，建議 5pm 後先去','聖誕新年人流高峰期，唔建議帶大型狗'],
+    hours:'24小時開放', rating:4.6, reviews:1247,
+    parking:'🚗 國際金融中心商場停車場（步行 5 分鐘）',
+    water:'✅ 場內設有寵物飲水機',
+    size:'~40,000 平方米', bestFor:'大型犬放電、社交、跑步' },
+
   { id:'peak', name:'山頂公園', region:'hki', district:'中西區', type:'公園', icon:'🌳', tag:'狗活動區',
-    addr:'山頂道', desc:'山頂盧吉道附近有環迴步道，可飽覽維港景色，要牽繩。',
-    hours:'06:00-22:00', tip:'帶水同 poo-bag。' },
+    addr:'山頂道', gmaps:'https://maps.google.com/?q=山頂公園+香港',
+    desc:'山頂盧吉道附近有環迴步道，可飽覽維港景色，要牽繩。',
+    fullDesc:'山頂公園係港島區最高嘅公園，海拔約 396 米，可以飽覽維港兩岸同九龍半島景色。公園以英式維多利亞風格設計，有大片綠化草坪同環迴步行徑。雖然要牽繩，但環境一流，係中產狗主最愛嘅散步地點。',
+    facilities:['環迴步行徑','觀景台','蔭涼大樹','座椅','洗手間','小食亭'],
+    rules:['必須牽繩 (≤2米)','清理寵物排泄物','禁止進入花圃','禁止餵飼野生動物'],
+    tips:['盧吉道最適合狗散步，較少人','夏天記得帶水，公園內水點有限','建議搭山頂纜車上山，狗狗需用寵物袋或推車','最佳時段係平日朝早 7-10am'],
+    hours:'06:00-22:00', rating:4.4, reviews:892,
+    parking:'🚗 山頂凌霄閣停車場',
+    water:'⚠️ 建議自備水',
+    size:'~50,000 平方米', bestFor:'散步、打卡、睇維港景' },
+
   { id:'repulse', name:'赤柱海灘', region:'hki', district:'南區', type:'海灘', icon:'🏖️', tag:'狗可下水',
-    addr:'赤柱赤柱崗道', desc:'周末毛孩放電勝地，沙灘平坦，狗狗可以游水降溫。',
-    hours:'06:00-19:00', tip:'帶毛巾同清水。' },
+    addr:'赤柱赤柱崗道', gmaps:'https://maps.google.com/?q=赤柱海灘',
+    desc:'周末毛孩放電勝地，沙灘平坦，狗狗可以游水降溫。',
+    fullDesc:'赤柱海灘係港島南區最方便到達嘅狗友善沙灘之一。沙質幼細，海水較淺，係狗狗游水嘅理想地點。海灘分為上層（多遊客）同下層（較少人），下層係狗主嘅秘密基地。',
+    facilities:['狗可下水區','沖身設施 (限時開放)','洗手間','小食亭','停車場','救生員 (夏季)'],
+    rules:['狗隻必須有主人全程控制','清理排泄物','禁止深夜使用','保護海洋生態'],
+    tips:['假日非常旺，建議平日去','下層海灘 (近美利樓方向) 較少人','狗狗游水後記得用清水沖身','帶毛巾同凍水，狗狗易中暑'],
+    hours:'06:00-19:00 (夏季延至 22:00)', rating:4.7, reviews:1532,
+    parking:'🚗 赤柱正灘停車場',
+    water:'✅ 沙灘公廁有清水',
+    size:'~300 米長沙灘', bestFor:'游水、跑沙、夏天消暑' },
+
   { id:'happyvalley', name:'跑馬地馬場周邊', region:'hki', district:'灣仔', type:'公園', icon:'🐎', tag:'散步徑',
-    addr:'跑馬地黃泥涌道', desc:'馬場周邊有完善行人道，毛孩散步一流。',
-    hours:'05:00-24:00', tip:'避開賽馬日。' },
+    addr:'跑馬地黃泥涌道', gmaps:'https://maps.google.com/?q=跑馬地馬場',
+    desc:'馬場周邊有完善行人道，毛孩散步一流。',
+    fullDesc:'跑馬地係港島傳統高尚住宅區，馬場周邊有多條完善嘅行人道同小公園。環境優雅，路面平坦，加上人流適中，係灣仔區狗主嘅日常散步首選。',
+    facilities:['完善行人道','小公園','街市美食','跑馬地遊樂場','洗手間 (馬場內)'],
+    rules:['必須牽繩','清理排泄物','避免賽馬日','進入馬場範圍禁止帶狗'],
+    tips:['避開星期三晚跑馬地','街市有唔少寵物店可以補給','黃泥涌道有唔少特色 Café 接受寵物','清晨 5-7am 最適合長者狗'],
+    hours:'05:00-24:00', rating:4.3, reviews:567,
+    parking:'🚗 黃泥涌道時租停車場',
+    water:'⚠️ 建議自備水',
+    size:'~2 公里行人環迴', bestFor:'日常散步、Café hopping' },
 
   // 九龍
   { id:'kowloon-park', name:'九龍公園', region:'kowloon', district:'油尖旺', type:'公園', icon:'🌸', tag:'狗公園',
-    addr:'尖沙咀柯士甸道西', desc:'公園內有寵物友善徑，鄰近尖沙咀多間 pet-friendly 餐廳。',
-    hours:'05:00-24:00', tip:'建議早晨去。' },
+    addr:'尖沙咀柯士甸道西', gmaps:'https://maps.google.com/?q=九龍公園',
+    desc:'公園內有寵物友善徑，鄰近尖沙咀多間 pet-friendly 餐廳。',
+    fullDesc:'九龍公園係尖沙咀市區綠洲，面積約 13 公頃。雖然官方規定公園範圍內狗隻必須牽繩，但設有特定嘅寵物友善徑。最大賣點係鄰近尖沙咀 CBD，散步完可以即刻去附近 pet-friendly 餐廳醫肚。',
+    facilities:['寵物友善徑','雕塑廊','鳥湖','玫瑰園','體育館','洗手間'],
+    rules:['必須牽繩','清理排泄物','禁止進入花圃','體育館內禁止寵物'],
+    tips:['建議朝早 6-8am 散步，最清靜','附近 K11 MUSEA、The One 都接受寵物','冬天聖誕燈飾好靚','夏天太熱，地下會燙狗腳'],
+    hours:'05:00-24:00', rating:4.2, reviews:2103,
+    parking:'🚗 尖沙咀區內多個停車場',
+    water:'✅ 公園內多個飲水機',
+    size:'~130,000 平方米', bestFor:'市區綠洲、文化遊、餐廳行先' },
+
   { id:'tst-waterfront', name:'尖沙咀星光大道海濱', region:'kowloon', district:'油尖旺', type:'海濱', icon:'✨', tag:'夜景',
-    addr:'尖沙咀梳士巴利道', desc:'維港海旁，毛孩可散步睇夜景，鄰近 K11 MUSEA 接受寵物。',
-    hours:'24小時', tip:'夜晚比較涼爽。' },
+    addr:'尖沙咀梳士巴利道', gmaps:'https://maps.google.com/?q=尖沙咀星光大道',
+    desc:'維港海旁，毛孩可散步睇夜景，鄰近 K11 MUSEA 接受寵物。',
+    fullDesc:'尖沙咀星光大道海濱長廊係全港最經典嘅海濱步道，維港夜景被譽為世界三大夜景。海濱全開放式設計，毛孩可以散步同時欣賞 8 點鐺鐺鐺幻彩詠香江。',
+    facilities:['海濱長廊','星光大道','維港觀景台','街頭表演 (假日)','洗手間','附近 K11 MUSEA'],
+    rules:['必須牽繩 (人多時)','清理排泄物','禁止商業攝影需申請','保護公共設施'],
+    tips:['8pm 幻彩詠香江最好睇','夜晚 9pm 後人少較舒適','連接 K11 Musea pet-friendly 商場','冬天 18°C 以下最佳'],
+    hours:'24小時', rating:4.5, reviews:3421,
+    parking:'🚗 尖沙咀中心停車場',
+    water:'⚠️ 建議自備',
+    size:'~1.6 公里長廊', bestFor:'睇夜景、打卡、約會' },
+
   { id:'megabox', name:'Megabox 戶外平台', region:'kowloon', district:'九龍灣', type:'商場', icon:'🛍️', tag:'寵物商場',
-    addr:'九龍灣宏照道38號', desc:'商場容許寵物落地，設有寵物飲水站。',
-    hours:'10:00-22:00', tip:'帶齊寵物袋。' },
+    addr:'九龍灣宏照道38號', gmaps:'https://maps.google.com/?q=Megabox+九龍灣',
+    desc:'商場容許寵物落地，設有寵物飲水站。',
+    fullDesc:'九龍灣 Megabox 係九龍東首選嘅 pet-friendly 商場，全場容許寵物落地，仲設有寵物專用飲水站同埋部分餐廳提供寵物餐單。商場不時舉辦寵物活動，係寵物社群聚腳點。',
+    facilities:['寵物飲水站','寵物用品店','Pet-friendly 餐廳','停車場','育嬰室 (可給寵物用)','冷氣充足'],
+    rules:['必須用寵物袋或推車 (小型犬除外)','清理排泄物','餐廳內需用寵物袋','大型犬需戴口罩'],
+    tips:['5樓平台花園最適合毛孩放電','停車場泊車有優惠','假日有 pet 活動','餐廳「Greyhound Café」接受大型狗'],
+    hours:'10:00-22:00', rating:4.4, reviews:1876,
+    parking:'🅿️ 商場停車場 (消費可免費泊車)',
+    water:'✅ 多個寵物飲水站',
+    size:'5 層商場', bestFor:'落雨天、購物、餐廳' },
 
   // 新界
   { id:'shatin-park', name:'沙田公園', region:'nt', district:'沙田', type:'公園', icon:'🌺', tag:'大型公園',
-    addr:'沙田源禾路12號', desc:'沙田中央公園，綠化充足，毛孩可以長散步。',
-    hours:'06:30-23:00', tip:'人多要牽繩。' },
+    addr:'沙田源禾路12號', gmaps:'https://maps.google.com/?q=沙田公園',
+    desc:'沙田中央公園，綠化充足，毛孩可以長散步。',
+    fullDesc:'沙田公園係新界最大型嘅城市公園之一，面積超過 8 公頃。設有中式園林、瀑布、人工湖同多個主題花園。沙田區係狗主集中地，所以公園設施對寵物友善，係新界東狗主嘅周末勝地。',
+    facilities:['人工湖','中式庭園','鵝卵石徑','座椅','洗手間','小食亭','停車場'],
+    rules:['必須牽繩','清理排泄物','禁止進入花圃','湖邊注意毛孩安全'],
+    tips:['沙田區有多間 pet shop 可補給','連接沙田新城市廣場 pet-friendly 商場','最佳時段係朝早或黃昏','秋天銀杏大道好靚'],
+    hours:'06:30-23:00', rating:4.5, reviews:2341,
+    parking:'🚗 沙田公園停車場',
+    water:'✅ 多個飲水設施',
+    size:'~80,000 平方米', bestFor:'新界東狗主、大型公園' },
+
   { id:'taipopark', name:'大埔海濱公園', region:'nt', district:'大埔', type:'海濱', icon:'🌅', tag:'單車徑',
-    addr:'大埔大發街', desc:'海濱長廊連單車徑，可同毛孩一齊踩單車或散步。',
-    hours:'07:00-21:00', tip:'帶糧水。' },
+    addr:'大埔大發街', gmaps:'https://maps.google.com/?q=大埔海濱公園',
+    desc:'海濱長廊連單車徑，可同毛孩一齊踩單車或散步。',
+    fullDesc:'大埔海濱公園係全港最大型嘅海濱公園，佔地約 22 公頃，設有單車徑連接大埔不同景點。園內有香港回歸紀念塔、昆蟲館等設施。海濱單車徑全長約 4 公里，可以同毛孩一齊踩單車。',
+    facilities:['單車徑 (可租車)','海濱長廊','回歸塔','昆蟲館','洗手間','小食亭','停車場'],
+    rules:['必須牽繩 (單車徑上)','清理排泄物','單車徑需讓路行人','園內禁止商業活動'],
+    tips:['可以租二人單車同狗狗一齊踩','昆蟲館免費入場','建議秋冬去，唔好帶狗狗入昆蟲館','踩到科學園再歎 Café'],
+    hours:'07:00-21:00', rating:4.6, reviews:1567,
+    parking:'🚗 園內大型停車場',
+    water:'✅ 多個飲水機',
+    size:'~220,000 平方米', bestFor:'踩單車、家庭日、影相' },
+
   { id:'saigon', name:'西貢海濱', region:'nt', district:'西貢', type:'海濱', icon:'⛵', tag:'海鮮+寵物',
-    addr:'西貢海傍街', desc:'西貢碼頭一帶餐廳大多歡迎寵物，毛孩可以一齊食海鮮。',
-    hours:'餐廳 11:00-22:00', tip:'假日非常旺。' },
+    addr:'西貢海傍街', gmaps:'https://maps.google.com/?q=西貢海傍街',
+    desc:'西貢碼頭一帶餐廳大多歡迎寵物，毛孩可以一齊食海鮮。',
+    fullDesc:'西貢海濱係香港人嘅後花園，由西貢碼頭到萬宜水庫一帶，係假日好去處。海傍街一帶嘅海鮮餐廳大部分接受寵物，可以一邊歎海鮮一邊陪毛孩。西貢墟更有唔少 pet shop 同特色 Café。',
+    facilities:['海濱長廊','碼頭','海鮮餐廳','Café','寵物店','街市','鹽田梓渡輪'],
+    rules:['餐廳內必須用寵物袋或放推車','海濱必須牽繩','清理排泄物','碼頭邊注意毛孩安全'],
+    tips:['假日極旺，建議平日去','海鮮餐廳推薦：全記、洪記','搭街渡去鹽田梓可以帶狗','秋天行山去萬宜水庫'],
+    hours:'餐廳 11:00-22:00', rating:4.7, reviews:2891,
+    parking:'🚗 西貢市中心停車場',
+    water:'✅ 餐廳內有水',
+    size:'~2 公里海濱', bestFor:'海鮮、行山、海島遊' },
+
   { id:'tuenmun-park', name:'屯門公園', region:'nt', district:'屯門', type:'公園', icon:'🏞️', tag:'爬蟲館',
-    addr:'屯門屯門鄉事會路', desc:'有爬蟲館同模型船池，適合一家大細連毛孩。',
-    hours:'07:00-23:00', tip:'記得帶 poo-bag。' },
+    addr:'屯門屯門鄉事會路', gmaps:'https://maps.google.com/?q=屯門公園',
+    desc:'有爬蟲館同模型船池，適合一家大細連毛孩。',
+    fullDesc:'屯門公園係屯門區最大型公園，最大特色係有全港少見嘅爬蟲館同模型船池。公園分為多個主題區域，包括玫瑰園、模型船池、爬蟲館。適合一家大細帶埋毛孩嚟玩，設施完善。',
+    facilities:['爬蟲館','模型船池','玫瑰園','緩跑徑','兒童遊樂場','洗手間','停車場'],
+    rules:['必須牽繩','清理排泄物','爬蟲館內禁止帶寵物','模型船池邊注意安全'],
+    tips:['爬蟲館免費入場','假日有模型船表演','屯門區 pet shop 多','連接輕鐵站，交通方便'],
+    hours:'07:00-23:00', rating:4.3, reviews:1245,
+    parking:'🚗 公園停車場',
+    water:'✅ 多個飲水設施',
+    size:'~120,000 平方米', bestFor:'家庭日、爬蟲館、模型船' },
+
   { id:'yuenlong', name:'南生圍', region:'nt', district:'元朗', type:'濕地', icon:'🦆', tag:'親親自然',
-    addr:'元朗山貝路', desc:'大片濕地同草原，毛孩可以放繩奔跑，但要小心雀鳥。',
-    hours:'08:00-18:00', tip:'建議秋冬去，夏天太熱。' },
+    addr:'元朗山貝路', gmaps:'https://maps.google.com/?q=南生圍',
+    desc:'大片濕地同草原，毛孩可以放繩奔跑，但要小心雀鳥。',
+    fullDesc:'南生圍係元朗最珍貴嘅濕地之一，擁有大片草原、紅樹林、錦田河。係少數可以放繩嘅大型戶外空間。秋天蘆葦盛開，景色一流。',
+    facilities:['放繩空間','紅樹林','草原','錦田河','橫水渡','單車徑'],
+    rules:['部分區域可放繩 (需視乎季節)','注意雀鳥棲息地','清理排泄物','保護濕地生態'],
+    tips:['秋冬去最佳，夏天太熱太多蚊','要搭橫水渡入去','帶足夠水同糧','小心牛隻 (有放牧)','唔好接近雀鳥群'],
+    hours:'08:00-18:00', rating:4.8, reviews:723,
+    parking:'🚗 山貝路路邊停車',
+    water:'⚠️ 必須自備',
+    size:'~2 平方公里', bestFor:'放繩奔跑、親親自然、影相' },
 
   // 大嶼山
   { id:'tsimtsha', name:'長沙海灘', region:'lantau', district:'大嶼山', type:'海灘', icon:'🌴', tag:'狗可下水',
-    addr:'大嶼山長沙', desc:'大嶼山最靚沙灘之一，毛孩可以游水。',
-    hours:'08:00-19:00', tip:'帶防曬。' },
+    addr:'大嶼山長沙', gmaps:'https://maps.google.com/?q=大嶼山長沙海灘',
+    desc:'大嶼山最靚沙灘之一，毛孩可以游水。',
+    fullDesc:'長沙海灘係大嶼山最長嘅沙灘，全長約 3 公里，沙質幼白，海水清澈。係少數容許狗隻下水嘅大沙灘之一。沙灘兩端有露營場地，可以同毛孩一齊過夜。',
+    facilities:['狗可下水','露營場地','基本洗手間','停車場','小食亭 (假日)','救生員 (夏季)'],
+    rules:['狗隻需有主人控制','清理排泄物','禁止商業活動','保護海洋生態'],
+    tips:['搭巴士 11/23 號直達','帶齊裝備 (遮陽帽、防曬)','假日非常旺，平日最佳','夏天 8-10am 海水最清'],
+    hours:'08:00-19:00 (夏季延至 22:00)', rating:4.7, reviews:945,
+    parking:'🚗 沙灘停車場',
+    water:'✅ 公廁有清水',
+    size:'~3 公里長沙灘', bestFor:'游水、露營、放電全日' },
+
   { id:'tai-o', name:'大澳漁村', region:'lantau', district:'大嶼山', type:'文化', icon:'🐾', tag:'特色景點',
-    addr:'大嶼山大澳', desc:'棚屋同中華白海豚，毛孩可以一齊感受小漁村風情。',
-    hours:'08:00-19:00', tip:'搭巴士入去。' }
+    addr:'大嶼山大澳', gmaps:'https://maps.google.com/?q=大澳漁村',
+    desc:'棚屋同中華白海豚，毛孩可以一齊感受小漁村風情。',
+    fullDesc:'大澳係香港最古老嘅漁村之一，以傳統棚屋同中華白海豚聞名。村內有唔少特色小食店，大部分接受寵物。可以搭小艇出海睇白海豚，但部分小艇可能唔接受大型狗。',
+    facilities:['棚屋景點','小艇遊 (部分接受寵物)','小食店','Café','街市','大澳文物酒店'],
+    rules:['必須牽繩','進入店舖需用寵物袋','清理排泄物','尊重村民生活'],
+    tips:['搭巴士 11 號直達','沙翁、蝦醬係名物','部分小艇可包船帶狗出海','附近可步行去虎山欣賞大澳全景'],
+    hours:'08:00-19:00 (店舖)', rating:4.4, reviews:1234,
+    parking:'🚗 大澳臨時停車場',
+    water:'⚠️ 餐廳內有水',
+    size:'整個漁村', bestFor:'文化遊、小食、棚屋打卡' }
 ];
 
 const placeList = document.getElementById('placeList');
+const placeModal = document.getElementById('placeModal');
 
 function renderPlaces(filter) {
   const filtered = filter === 'all' ? hkPlaces : hkPlaces.filter(p => p.region === filter);
   placeList.innerHTML = filtered.map(p => `
-    <div class="place-item" data-region="${p.region}">
+    <div class="place-item" data-region="${p.region}" data-id="${p.id}">
       <div class="place-item-icon">${p.icon}</div>
       <div class="place-item-body">
         <div class="place-item-head">
@@ -1750,16 +2035,153 @@ function renderPlaces(filter) {
         <div class="place-item-meta">
           <span class="meta-item">📍 ${p.district} · ${p.type}</span>
           <span class="meta-item">🕐 ${p.hours}</span>
+          <span class="meta-item">⭐ ${p.rating} (${p.reviews})</span>
         </div>
         <p class="place-item-desc">${p.desc}</p>
         <div class="place-item-footer">
-          <span class="place-address">${p.addr}</span>
-          <span class="place-tip">💡 ${p.tip}</span>
+          <span class="place-cta">查看完整資料 →</span>
         </div>
       </div>
     </div>
   `).join('');
 }
+
+function openPlaceModal(id) {
+  const p = hkPlaces.find(x => x.id === id);
+  if (!p) return;
+
+  const facilitiesHTML = p.facilities.map(f => `<li>${f}</li>`).join('');
+  const rulesHTML = p.rules.map(r => `<li>${r}</li>`).join('');
+  const tipsHTML = p.tips.map(t => `<li>${t}</li>`).join('');
+  const stars = '⭐'.repeat(Math.round(p.rating)) + '☆'.repeat(5 - Math.round(p.rating));
+
+  const modalBody = document.getElementById('modalBody');
+  modalBody.innerHTML = `
+    <div class="modal-hero" style="background: linear-gradient(135deg, var(--coral) 0%, var(--gold) 100%);">
+      <div class="modal-hero-icon">${p.icon}</div>
+      <div class="modal-hero-content">
+        <h2>${p.name}</h2>
+        <div class="modal-hero-meta">
+          <span class="modal-tag">${p.tag}</span>
+          <span class="modal-rating">${stars} ${p.rating} (${p.reviews} 評論)</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-grid">
+      <div class="modal-section">
+        <h3>📍 基本資料</h3>
+        <div class="modal-info-list">
+          <div class="modal-info-item">
+            <span class="info-label">地區</span>
+            <span class="info-value">${p.district} · ${p.type}</span>
+          </div>
+          <div class="modal-info-item">
+            <span class="info-label">地址</span>
+            <span class="info-value">${p.addr}</span>
+          </div>
+          <div class="modal-info-item">
+            <span class="info-label">開放時間</span>
+            <span class="info-value">${p.hours}</span>
+          </div>
+          <div class="modal-info-item">
+            <span class="info-label">面積</span>
+            <span class="info-value">${p.size}</span>
+          </div>
+          <div class="modal-info-item">
+            <span class="info-label">停車</span>
+            <span class="info-value">${p.parking}</span>
+          </div>
+          <div class="modal-info-item">
+            <span class="info-label">飲水設施</span>
+            <span class="info-value">${p.water}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-section">
+        <h3>✨ 詳細介紹</h3>
+        <p class="modal-full-desc">${p.fullDesc}</p>
+        <div class="modal-bestfor"><strong>🎯 最適合：</strong>${p.bestFor}</div>
+      </div>
+
+      <div class="modal-section">
+        <h3>🏷️ 場內設施</h3>
+        <ul class="modal-facilities">${facilitiesHTML}</ul>
+      </div>
+
+      <div class="modal-section">
+        <h3>📋 入場守則</h3>
+        <ul class="modal-rules">${rulesHTML}</ul>
+      </div>
+
+      <div class="modal-section modal-tips-section">
+        <h3>💡 狗主貼士</h3>
+        <ul class="modal-tips">${tipsHTML}</ul>
+      </div>
+
+      <div class="modal-section">
+        <h3>🚀 快速行動</h3>
+        <div class="modal-actions">
+          <a href="${p.gmaps}" target="_blank" rel="noopener" class="modal-action-btn modal-action-gmaps">
+            🗺️ Google Maps 導航
+          </a>
+          <a href="https://wa.me/?text=${encodeURIComponent('🐾 ' + p.name + '\n' + p.addr + '\n' + 'https://pethome.gamewayz.com/#' + p.id)}" target="_blank" rel="noopener" class="modal-action-btn modal-action-share">
+            💬 分享俾朋友
+          </a>
+          <button type="button" class="modal-action-btn modal-action-save" data-save-id="${p.id}">
+            🔖 收藏地點
+          </button>
+        </div>
+      </div>
+    </div>
+  `;
+
+  placeModal.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closePlaceModal() {
+  placeModal.classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+// Open modal on card click
+placeList.addEventListener('click', function(e) {
+  const card = e.target.closest('.place-item');
+  if (card && card.dataset.id) {
+    openPlaceModal(card.dataset.id);
+  }
+});
+
+// Close modal handlers
+document.addEventListener('click', function(e) {
+  if (e.target.classList.contains('modal-close') ||
+      e.target.classList.contains('place-modal-overlay') ||
+      e.target.closest('.modal-close')) {
+    closePlaceModal();
+  }
+  // Save button
+  if (e.target.closest('.modal-action-save')) {
+    const btn = e.target.closest('.modal-action-save');
+    const id = btn.dataset.saveId;
+    let saved = JSON.parse(localStorage.getItem('pawcity-saved-places') || '[]');
+    if (saved.includes(id)) {
+      saved = saved.filter(x => x !== id);
+      btn.innerHTML = '🔖 收藏地點';
+    } else {
+      saved.push(id);
+      btn.innerHTML = '✅ 已收藏';
+    }
+    localStorage.setItem('pawcity-saved-places', JSON.stringify(saved));
+  }
+});
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape' && placeModal.classList.contains('active')) {
+    closePlaceModal();
+  }
+});
 
 // Region tab clicks
 document.querySelectorAll('.region-tab').forEach(tab => {
@@ -1767,7 +2189,6 @@ document.querySelectorAll('.region-tab').forEach(tab => {
     document.querySelectorAll('.region-tab').forEach(t => t.classList.remove('active'));
     this.classList.add('active');
     renderPlaces(this.dataset.region);
-    // Highlight SVG region
     document.querySelectorAll('.region-group').forEach(g => g.classList.remove('active-region'));
     const r = this.dataset.region;
     if (r !== 'all') {
@@ -1794,7 +2215,7 @@ document.querySelectorAll('.region-group').forEach(g => {
 
 // Initial render
 renderPlaces('all');
-</script>
+
 
 <section class="places-section section-padding reveal" id="places">
   <div class="section-header">
