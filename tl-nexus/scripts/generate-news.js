@@ -285,6 +285,15 @@ const articles = [
 </ul>
 <p>此外，亚服将于6月2日进行服务器整合，解决人口不平衡问题。</p>`,
   },
+  {
+    id: "update-3-37-0-mq0wgpt7", title: "更新 3.37.0",
+    date: "2026-06-03", author: "TL攻略站",
+    icon: "📋",
+    content: `<p>2026-06-03，来自Throne and Liberty 官方新闻的消息。</p>
+<p>近日，Throne and Liberty 更新 3.37.0 downtime will begin at 10:30 p.m. PT (5:30 a.m. UTC) on June 3rd and last approximately 3 hours. TL攻略站将持续关注后续更新动态，第一时间为玩家带来详细解读。</p>
+<hr />
+<p style="color:#6a5a4a;font-size:13px">来源：<a href="https://www.playthroneandliberty.com/en-US/news/articles/update-3-37-0" style="color:#c9a227" target="_blank" rel="noopener">Throne and Liberty 官方新闻</a> · TL攻略站编译整理</p>`,
+  },
 ];
 
 function buildPage(article) {

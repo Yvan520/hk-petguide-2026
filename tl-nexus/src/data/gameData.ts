@@ -427,6 +427,12 @@ export const newsArticles = [
     content: "NCsoft 在尼克斯前瞻中同步公布了6月上线之后的更新路线图。\n\n7月更新：\n- 新篇章首领「龙骑士拉姆斯」登场\n- 新增拉姆斯相关支线故事集\n- 全新增强力的弧形Boss拉姆斯装备\n- 与大法师相关的法典内容和强大的大法师装备\n- 合作副本「铁矿石摇篮」与「霜息洞穴」\n- 挑战次元阵开放\n- 全新战场模式「密封战斗」，包含新规则、目标和全新战场地图\n\n8月更新：\n- TL 中出现空前巨大的「泰拉首领」\n- 新增与泰拉首领相关的支线故事法典\n- 新增与泰拉首领遭遇战相关的强大首领装备\n- 改进岩石镇攻城和税收运输体验\n\n此外，亚服将于6月2日进行服务器整合，解决人口不平衡问题。",
     author: "TL攻略站", tags: ["更新", "路线图", "预告"], icon: "🗓️",
   },
+  {
+    id: "update-3-37-0-mq0wgpt7", title: "更新 3.37.0", date: "2026-06-03",
+    summary: "近日，Throne and Liberty 更新 3.37.0 downtime will begin at 10:30 p.m. PT (5:30 a.m. UTC) on June 3rd and last approximately 3 hours. TL攻略站将持续关注后续更新动态，第一时间",
+    content: "近日，Throne and Liberty 更新 3.37.0 downtime will begin at 10:30 p.m. PT (5:30 a.m. UTC) on June 3rd and last approximately 3 hours. TL攻略站将持续关注后续更新动态，第一时间为玩家带来详细解读。",
+    author: "TL攻略站", tags: ["更新", "自动采集"], icon: "📋",
+  },
 ];
 
 export const gearProgression = [
