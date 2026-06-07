@@ -216,4 +216,10 @@
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
+  <url>
+    <loc>https://pethome.gamewayz.com/article-cat-summer-aircon.html</loc>
+    <lastmod>2026年06月07日</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
 </urlset>
