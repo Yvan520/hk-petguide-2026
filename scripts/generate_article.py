@@ -8,6 +8,7 @@ import json, os, re, sys, hashlib
 from datetime import date, datetime
 from pathlib import Path
 
+import httpx
 from openai import OpenAI
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -113,7 +114,8 @@ def count_chinese(text):
     return len(chinese_chars)
 
 def generate_article_content(prompt):
-    client = OpenAI(api_key=API_KEY, base_url=API_BASE_URL)
+    http_client = httpx.Client(timeout=httpx.Timeout(120.0, connect=20.0))
+    client = OpenAI(api_key=API_KEY, base_url=API_BASE_URL, http_client=http_client)
     best_content = ""
     best_count = 0
     for attempt in range(3):
@@ -129,7 +131,6 @@ def generate_article_content(prompt):
                 ],
                 max_tokens=8192,
                 temperature=0.8 + attempt * 0.1,
-                timeout=120,
             )
             content = resp.choices[0].message.content
         except Exception as e:
