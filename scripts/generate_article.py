@@ -49,7 +49,7 @@ def build_prompt(topic):
 - 日期：{today}
 
 ## CRITICAL: Length Requirement
-全文必須有 **1000 至 1500 個中文字**（約 3000-5000 個 HTML byte）。如果文章少過 1000 字就當失敗。唔好寫得太短，每段小標題下面最少寫 3-4 句詳細內容。
+全文必須有 **1500 至 2000 個中文字**。如果文章少過 1500 字就當失敗。唔好寫得太短，每段小標題下面最少寫 3-4 句詳細內容。
 
 ## 寫作要求
 1. 全文用香港粵語口吻（用「嘅、唔、哋、咗、啲、仲、喺、睇、食、搵、俾」）
@@ -123,11 +123,11 @@ def generate_article_content(prompt):
                 messages=[
                     {
                         "role": "system",
-                        "content": "你係PawCity HK嘅寵物內容編輯。用香港地道粵語寫原創寵物文章。一定要引用真實來源。文章必須夠長——少過1000中文字就算失敗。",
+                        "content": "你係PawCity HK嘅寵物內容編輯。用香港地道粵語寫原創寵物文章。一定要引用真實來源。文章必須夠長——少過1500中文字就算失敗。",
                     },
                     {"role": "user", "content": prompt},
                 ],
-                max_tokens=4096,
+                max_tokens=8192,
                 temperature=0.8 + attempt * 0.1,
             )
             content = resp.choices[0].message.content
@@ -139,10 +139,10 @@ def generate_article_content(prompt):
         if cnt > best_count:
             best_content = content
             best_count = cnt
-        if cnt >= 1000:
-            print(f"  ✓ Length OK (≥1000 chars)")
+        if cnt >= 1500:
+            print(f"  ✓ Length OK (≥1500 chars)")
             return content
-        print(f"  ✗ Too short ({cnt} < 1000), retrying...")
+        print(f"  ✗ Too short ({cnt} < 1500), retrying...")
     if best_content:
         print(f"  ⚠ Best attempt: {best_count} chars (using anyway)")
         return best_content
