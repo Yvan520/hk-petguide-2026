@@ -48,16 +48,18 @@ def build_prompt(topic):
 - 參考來源：{', '.join(topic['sources'])}
 - 日期：{today}
 
+## CRITICAL: Length Requirement
+全文必須有 **1500 至 2000 個中文字**（約 5000-7000 個 HTML byte）。如果文章少過 1500 字就當失敗。唔好寫得太短，每段小標題下面最少寫 3-4 句詳細內容。
+
 ## 寫作要求
 1. 全文用香港粵語口吻（用「嘅、唔、哋、咗、啲、仲、喺、睇、食、搵、俾」）
-2. **文章長度 1500-2000 字**（至少 8 段，每段 ~200 字）
-3. 參考上面嘅來源寫作，但要用自己嘅話重新組織，引用要加 footnotes
-4. 最少 6-8 個小標題（用 h2），每個小標題 cover 一個具體角度
-5. 文底加「📚 參考資料」section，每條來源用 hyperlink 格式
-6. SEO要求：標題用h1、小標題用h2、meta description要自然包含關鍵詞
-7. **加入具體數據同例子**（例如：幾多％狗狗有呢個問題、某個研究發現咩、香港嘅具體情況）
-8. **加入 2-3 個 FAQ**（用 h3 「❓ FAQ1」做小標題，下面用 <p> 回答）
-9. **加入本地相關資訊**（例如：香港邊度有服務、大約幾錢、點樣預約）
+2. 最少 8-10 個小標題（用 h2），每個小標題 cover 一個具體角度
+3. 參考上面嘅來源寫作，但要用自己嘅話重新組織，引用要加 hyperlink
+4. 文底加「📚 參考資料」section（至少 3-5 條來源，用 <a href> 連去真實網站）
+5. SEO要求：標題用h1、小標題用h2、meta description要自然包含關鍵詞
+6. **加入具體數據同例子**（例如：幾多％狗狗有呢個問題、某個研究發現咩、香港嘅具體情況）
+7. **加入 2-3 個 FAQ**（用 h3 「❓ FAQ1：問題」做小標題，下面用 <p> 回答）
+8. **加入本地相關資訊**（例如：香港邊度有服務、大約幾錢、點樣預約）
 
 ## 格式要求
 輸出格式係 HTML，只用 <body> 內嘅內容（唔包 header/footer/nav），structure 如下：
@@ -106,21 +108,39 @@ def build_prompt(topic):
 """
 
 
+def count_chinese(text):
+    chinese_chars = re.findall(r'[\u4e00-\u9fff]', text)
+    return len(chinese_chars)
+
 def generate_article_content(prompt):
     client = OpenAI(api_key=API_KEY, base_url=API_BASE_URL)
-    resp = client.chat.completions.create(
-        model=MODEL_NAME,
-        messages=[
-            {
-                "role": "system",
-                "content": "你係PawCity HK嘅寵物內容編輯。用香港地道粵語寫原創寵物文章。一定要引用真實來源。",
-            },
-            {"role": "user", "content": prompt},
-        ],
-        max_tokens=8192,
-        temperature=0.7,
-    )
-    return resp.choices[0].message.content
+    best_content = ""
+    best_count = 0
+    for attempt in range(3):
+        resp = client.chat.completions.create(
+            model=MODEL_NAME,
+            messages=[
+                {
+                    "role": "system",
+                    "content": "你係PawCity HK嘅寵物內容編輯。用香港地道粵語寫原創寵物文章。一定要引用真實來源。文章必須夠長——少過1500中文字就算失敗。",
+                },
+                {"role": "user", "content": prompt},
+            ],
+            max_tokens=8192,
+            temperature=0.8 + attempt * 0.1,
+        )
+        content = resp.choices[0].message.content
+        cnt = count_chinese(content)
+        print(f"  ↳ Attempt {attempt+1}: {cnt} Chinese chars")
+        if cnt > best_count:
+            best_content = content
+            best_count = cnt
+        if cnt >= 1500:
+            print(f"  ✓ Length OK (≥1500 chars)")
+            return content
+        print(f"  ✗ Too short ({cnt} < 1500), retrying...")
+    print(f"  ⚠ Best attempt: {best_count} chars (using anyway)")
+    return best_content
 
 
 def build_full_html(topic, body_html, today_str):
@@ -298,14 +318,18 @@ def update_sitemap(slug, today_str):
 
 
 def main():
+    force = "--force" in sys.argv
     topic = get_today_topic()
     slug = topic["slug"]
     today_str = date.today().strftime("%Y年%m月%d日")
 
     existing = get_existing_slugs()
-    if f"article-{slug}" in existing:
-        print(f"✗ article-{slug}.html already exists — skipping")
+    slug_name = f"article-{slug}"
+    if slug_name in existing and not force:
+        print(f"✗ {slug_name}.html already exists — skipping")
         sys.exit(0)
+    if slug_name in existing and force:
+        print(f"⚠ --force: regenerating {slug_name}.html")
 
     print(f"→ Generating: {topic['title']} ({slug})")
     prompt = build_prompt(topic)
