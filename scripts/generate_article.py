@@ -50,34 +50,57 @@ def build_prompt(topic):
 
 ## 寫作要求
 1. 全文用香港粵語口吻（用「嘅、唔、哋、咗、啲、仲、喺、睇、食、搵、俾」）
-2. 文章長度 800-1200 字
-3. 參考上面嘅來源寫作，但要用自己嘅話重新組織，唔好直接抄
-4. 每段加小標題（用 h2）
-5. 文底加「📚 參考資料」section，列出參考來源
+2. **文章長度 1500-2000 字**（至少 8 段，每段 ~200 字）
+3. 參考上面嘅來源寫作，但要用自己嘅話重新組織，引用要加 footnotes
+4. 最少 6-8 個小標題（用 h2），每個小標題 cover 一個具體角度
+5. 文底加「📚 參考資料」section，每條來源用 hyperlink 格式
 6. SEO要求：標題用h1、小標題用h2、meta description要自然包含關鍵詞
+7. **加入具體數據同例子**（例如：幾多％狗狗有呢個問題、某個研究發現咩、香港嘅具體情況）
+8. **加入 2-3 個 FAQ**（用 h3 「❓ FAQ1」做小標題，下面用 <p> 回答）
+9. **加入本地相關資訊**（例如：香港邊度有服務、大約幾錢、點樣預約）
 
 ## 格式要求
 輸出格式係 HTML，只用 <body> 內嘅內容（唔包 header/footer/nav），structure 如下：
 
-<h2>小標題</h2>
-<p>內容...</p>
-...
+<p class="article-intro">開場白（~100字，總結全文重點）</p>
+
+<h2>🔍 小標題1</h2>
+<p>詳細內容⋯⋯</p>
+
+<h2>💡 小標題2</h2>
+<p>詳細內容⋯⋯</p>
+
+<h2>⚡ 小標題3</h2>
+<p>詳細內容⋯⋯</p>
+
+<h2>🏥 小標題4</h2>
+<p>詳細內容⋯⋯</p>
+
+...（最少 6-8 個 h2）
+
+<h3>❓ FAQ1：呢個問題係咪真？</h3>
+<p>答案⋯⋯</p>
+
+<h3>❓ FAQ2：如果我遇到呢個情況點算？</h3>
+<p>答案⋯⋯</p>
 
 <div class="conclusion reveal">
-  <h3>總結</h3>
-  <p>...</p>
+  <h3>📌 總結</h3>
+  <p>整合全文重點⋯⋯</p>
 </div>
 
 <div class="article-tags reveal">
   <span class="article-tag">#標籤1</span>
   <span class="article-tag">#標籤2</span>
+  <span class="article-tag">#標籤3</span>
 </div>
 
 <div class="references" style="margin-top:40px;padding:28px 24px;background:#FAFAF8;border-radius:16px;">
   <h3>📚 參考資料</h3>
   <ul>
-    <li>來源1</li>
-    <li>來源2</li>
+    <li><a href="https://..." target="_blank" rel="noopener">來源1 - 標題</a></li>
+    <li><a href="https://..." target="_blank" rel="noopener">來源2 - 標題</a></li>
+    <li><a href="https://..." target="_blank" rel="noopener">來源3 - 標題</a></li>
   </ul>
 </div>
 """
@@ -94,7 +117,7 @@ def generate_article_content(prompt):
             },
             {"role": "user", "content": prompt},
         ],
-        max_tokens=4096,
+        max_tokens=8192,
         temperature=0.7,
     )
     return resp.choices[0].message.content
@@ -129,6 +152,14 @@ def build_full_html(topic, body_html, today_str):
 <meta property="og:url" content="{LIVE_URL}/article-{slug}.html">
 <meta property="og:type" content="article">
 <link rel="manifest" href="/manifest.json">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XN13C8R94Y"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-XN13C8R94Y');
+</script>
 <style>
 * {{ margin:0; padding:0; box-sizing:border-box; }}
 :root {{ --coral:#E8634A; --coral-light:#FF6B55; --gold:#E8A83A; --gold-light:#F0B84A; --sage:#5A9E5A; --sky:#3A7BD5; --dark:#2C2C2C; --charcoal:#3A3A3A; --cream:#FFF8F5; --radius:16px; }}
