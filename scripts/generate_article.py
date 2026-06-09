@@ -117,19 +117,24 @@ def generate_article_content(prompt):
     best_content = ""
     best_count = 0
     for attempt in range(3):
-        resp = client.chat.completions.create(
-            model=MODEL_NAME,
-            messages=[
-                {
-                    "role": "system",
-                    "content": "你係PawCity HK嘅寵物內容編輯。用香港地道粵語寫原創寵物文章。一定要引用真實來源。文章必須夠長——少過1500中文字就算失敗。",
-                },
-                {"role": "user", "content": prompt},
-            ],
-            max_tokens=8192,
-            temperature=0.8 + attempt * 0.1,
-        )
-        content = resp.choices[0].message.content
+        try:
+            resp = client.chat.completions.create(
+                model=MODEL_NAME,
+                messages=[
+                    {
+                        "role": "system",
+                        "content": "你係PawCity HK嘅寵物內容編輯。用香港地道粵語寫原創寵物文章。一定要引用真實來源。文章必須夠長——少過1500中文字就算失敗。",
+                    },
+                    {"role": "user", "content": prompt},
+                ],
+                max_tokens=8192,
+                temperature=0.8 + attempt * 0.1,
+                timeout=120,
+            )
+            content = resp.choices[0].message.content
+        except Exception as e:
+            print(f"  ↳ Attempt {attempt+1} failed: {type(e).__name__}")
+            continue
         cnt = count_chinese(content)
         print(f"  ↳ Attempt {attempt+1}: {cnt} Chinese chars")
         if cnt > best_count:
@@ -139,8 +144,10 @@ def generate_article_content(prompt):
             print(f"  ✓ Length OK (≥1500 chars)")
             return content
         print(f"  ✗ Too short ({cnt} < 1500), retrying...")
-    print(f"  ⚠ Best attempt: {best_count} chars (using anyway)")
-    return best_content
+    if best_content:
+        print(f"  ⚠ Best attempt: {best_count} chars (using anyway)")
+        return best_content
+    raise RuntimeError("All 3 API attempts failed")
 
 
 def build_full_html(topic, body_html, today_str):
