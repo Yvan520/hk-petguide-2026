@@ -1,0 +1,41 @@
+name: Regenerate All Articles
+
+on:
+  workflow_dispatch:
+
+jobs:
+  regenerate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install openai
+
+      - name: Regenerate all articles
+        env:
+          API_KEY: ${{ secrets.LONGCAT_API_KEY }}
+          API_BASE_URL: ${{ secrets.LONGCAT_API_BASE_URL }}
+          MODEL_NAME: ${{ secrets.LONGCAT_MODEL_NAME }}
+        run: python scripts/regenerate_all.py
+
+      - name: Commit and push
+        run: |
+          git config user.name "PawCity Bot"
+          git config user.email "bot@pethome.gamewayz.com"
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "feat: regenerate all articles with natural tone prompt"
+            git push
+          fi

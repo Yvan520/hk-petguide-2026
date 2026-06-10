@@ -327,9 +327,28 @@ def update_sitemap(slug, today_str):
     print(f"  ↳ sitemap updated with {url}")
 
 
+def get_topic_by_slug(target_slug):
+    with open(CALENDAR_PATH, "r", encoding="utf-8") as f:
+        topics = json.load(f)
+    for t in topics:
+        if t["slug"] == target_slug:
+            return t
+    return None
+
 def main():
     force = "--force" in sys.argv
-    topic = get_today_topic()
+    topic_slug = None
+    for i, arg in enumerate(sys.argv):
+        if arg == "--topic-slug" and i + 1 < len(sys.argv):
+            topic_slug = sys.argv[i + 1]
+
+    if topic_slug:
+        topic = get_topic_by_slug(topic_slug)
+        if not topic:
+            print(f"✗ Topic slug '{topic_slug}' not found in calendar")
+            sys.exit(1)
+    else:
+        topic = get_today_topic()
     slug = topic["slug"]
     today_str = date.today().strftime("%Y年%m月%d日")
 
