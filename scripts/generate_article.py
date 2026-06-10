@@ -38,7 +38,7 @@ def get_existing_slugs():
 
 def build_prompt(topic):
     today = date.today().strftime("%Y年%m月%d日")
-    return f"""你係PawCity HK嘅寵物編輯。請用地道香港粵語寫一篇原創寵物文章。
+    return f"""你係PawCity HK嘅寵物編輯，幫我寫一篇寵物文章。用香港粵語寫，要似真人寫嘅blog文，唔似AI倒模。
 
 ## 文章資料
 - 標題：{topic['title']}
@@ -48,47 +48,32 @@ def build_prompt(topic):
 - 參考來源：{', '.join(topic['sources'])}
 - 日期：{today}
 
-## CRITICAL: Length Requirement
-全文必須有 **1500 至 2000 個中文字**。如果文章少過 1500 字就當失敗。唔好寫得太短，每段小標題下面最少寫 3-4 句詳細內容。
-
 ## 寫作要求
-1. 全文用香港粵語口吻（用「嘅、唔、哋、咗、啲、仲、喺、睇、食、搵、俾」）
-2. 最少 8-10 個小標題（用 h2），每個小標題 cover 一個具體角度
-3. 參考上面嘅來源寫作，但要用自己嘅話重新組織，引用要加 hyperlink
-4. 文底加「📚 參考資料」section（至少 3-5 條來源，用 <a href> 連去真實網站）
-5. SEO要求：標題用h1、小標題用h2、meta description要自然包含關鍵詞
-6. **加入具體數據同例子**（例如：幾多％狗狗有呢個問題、某個研究發現咩、香港嘅具體情況）
-7. **加入 2-3 個 FAQ**（用 h3 「❓ FAQ1：問題」做小標題，下面用 <p> 回答）
-8. **加入本地相關資訊**（例如：香港邊度有服務、大約幾錢、點樣預約）
+1. **全文約 600-1000 個中文字**就夠，唔使太長。
+2. 用香港粵語口吻（的→嘅、不→唔、們→哋、了→咗、那些→啲、還→仲、在→喺、看→睇、吃→食、找→搵、給→俾），自然啲。
+3. 3-4 個小標題（h2）就夠，唔使每段都加emoji開頭。
+4. 唔使刻意加FAQ、唔使加emoji圖案喺標題。
+5. 引用真實資料要自然融入內文，唔好硬塞。
+6. 文末簡單列出參考資料就得，用<a>連去真實網站（如SPCA、AFCD、AVMA）。
+7. 文章要讀落似真人分享經驗，有香港本地角度（例如：香港邊度有相關服務、大約幾錢）。
+8. 每段 3-5 句就夠，唔好太冗長。
+9. 唔好用「你可唔可以」、「你知唔知」呢啲常見AI開場白。
 
-## 格式要求
-輸出格式係 HTML，只用 <body> 內嘅內容（唔包 header/footer/nav），structure 如下：
+## 輸出格式
+就係 <body> 內嘅 HTML 內容直接用 <h2> 分 section，唔使花巧。範例：
 
-<p class="article-intro">開場白（~100字，總結全文重點）</p>
+<h2>一個自然嘅小標題</h2>
+<p>內文內容⋯⋯</p>
 
-<h2>🔍 小標題1</h2>
-<p>詳細內容⋯⋯</p>
+<h2>另一個小標題</h2>
+<p>內文⋯⋯有引用嘅資料可以括住來源。</p>
 
-<h2>💡 小標題2</h2>
-<p>詳細內容⋯⋯</p>
-
-<h2>⚡ 小標題3</h2>
-<p>詳細內容⋯⋯</p>
-
-<h2>🏥 小標題4</h2>
-<p>詳細內容⋯⋯</p>
-
-...（最少 6-8 個 h2）
-
-<h3>❓ FAQ1：呢個問題係咪真？</h3>
-<p>答案⋯⋯</p>
-
-<h3>❓ FAQ2：如果我遇到呢個情況點算？</h3>
-<p>答案⋯⋯</p>
+<h2>第三個角度</h2>
+<p>繼續寫⋯⋯</p>
 
 <div class="conclusion reveal">
-  <h3>📌 總結</h3>
-  <p>整合全文重點⋯⋯</p>
+  <h3>總結</h3>
+  <p>簡單總結幾句。</p>
 </div>
 
 <div class="article-tags reveal">
@@ -98,11 +83,10 @@ def build_prompt(topic):
 </div>
 
 <div class="references" style="margin-top:40px;padding:28px 24px;background:#FAFAF8;border-radius:16px;">
-  <h3>📚 參考資料</h3>
+  <h3>參考資料</h3>
   <ul>
-    <li><a href="https://..." target="_blank" rel="noopener">來源1 - 標題</a></li>
-    <li><a href="https://..." target="_blank" rel="noopener">來源2 - 標題</a></li>
-    <li><a href="https://..." target="_blank" rel="noopener">來源3 - 標題</a></li>
+    <li><a href="https://..." target="_blank" rel="noopener">來源 - 標題</a></li>
+    <li><a href="https://..." target="_blank" rel="noopener">來源 - 標題</a></li>
   </ul>
 </div>
 """
@@ -123,11 +107,11 @@ def generate_article_content(prompt):
                 messages=[
                     {
                         "role": "system",
-                        "content": "你係PawCity HK嘅寵物內容編輯。用香港地道粵語寫原創寵物文章。一定要引用真實來源。文章必須夠長——少過1500中文字就算失敗。",
+                        "content": "你係PawCity HK嘅寵物編輯。用香港粵語寫原創寵物文章，自然啲似真人寫。引用真實來源。約600-1000字。",
                     },
                     {"role": "user", "content": prompt},
                 ],
-                max_tokens=8192,
+                max_tokens=4096,
                 temperature=0.8 + attempt * 0.1,
             )
             content = resp.choices[0].message.content
@@ -139,10 +123,10 @@ def generate_article_content(prompt):
         if cnt > best_count:
             best_content = content
             best_count = cnt
-        if cnt >= 1500:
-            print(f"  ✓ Length OK (≥1500 chars)")
+        if cnt >= 600:
+            print(f"  ✓ Length OK ({cnt} chars)")
             return content
-        print(f"  ✗ Too short ({cnt} < 1500), retrying...")
+        print(f"  ✗ Too short ({cnt} < 600), retrying...")
     if best_content:
         print(f"  ⚠ Best attempt: {best_count} chars (using anyway)")
         return best_content
@@ -178,6 +162,26 @@ def build_full_html(topic, body_html, today_str):
 <meta property="og:url" content="{LIVE_URL}/article-{slug}.html">
 <meta property="og:type" content="article">
 <link rel="manifest" href="/manifest.json">
+<script type="application/ld+json">{{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "{title}",
+  "description": "{desc}",
+  "author": {{
+    "@type": "Organization",
+    "name": "PawCity HK"
+  }},
+  "publisher": {{
+    "@type": "Organization",
+    "name": "PawCity HK"
+  }},
+  "datePublished": "{today_str}",
+  "dateModified": "{today_str}",
+  "mainEntityOfPage": "{{
+    "@type": "WebPage",
+    "@id": "{LIVE_URL}/article-{slug}.html"
+  }}
+}}</script>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-XN13C8R94Y"></script>
 <script>
