@@ -140,12 +140,15 @@ def build_full_html(topic, body_html, today_str):
     category = topic["category"]
     keywords = ", ".join(topic["keywords"])
 
-    existing = get_existing_slugs()
+    import urllib.parse
+    encoded_title = urllib.parse.quote(title)
+    encoded_url = urllib.parse.quote(f"{LIVE_URL}/article-{slug}.html")
 
+    existing = get_existing_slugs()
+    related_slugs = [s for s in existing if s != f"article-{slug}"][:3]
     related_links = ""
-    related = [s for s in ["article-" + s for s in list(existing)[:3]] if s != f"article-{slug}"]
-    for r in related[:3]:
-        name = r.replace("article-", "").replace("-", " ")
+    for r in related_slugs:
+        name = r.replace("article-", "").replace("-", " ").strip()
         related_links += f'<a href="{r}.html" class="related-card"><h4>{name}</h4></a>\n'
 
     return f"""<!DOCTYPE html>
@@ -241,6 +244,11 @@ body {{ font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-seri
 .footer ul li {{ margin-bottom:8px; }}
 .footer ul a {{ color:rgba(255,255,255,0.45); text-decoration:none; font-size:13px; }}
 .footer ul a:hover {{ color:white; }}
+.share-btn {{ transition:all 0.2s; }}
+.share-btn:hover {{ opacity:0.85;transform:translateY(-1px); }}
+.related-card {{ display:block;padding:16px;background:white;border:1px solid rgba(0,0,0,0.06);border-radius:12px;text-decoration:none;color:var(--charcoal);transition:all 0.2s; }}
+.related-card:hover {{ box-shadow:0 4px 12px rgba(0,0,0,0.08);transform:translateY(-2px); }}
+.related-card h4 {{ font-size:14px;font-weight:600;margin:0; }}
 .footer-bottom {{ text-align:center; padding-top:30px; margin-top:40px; border-top:1px solid rgba(255,255,255,0.06); font-size:13px; }}
 @media (max-width:768px) {{ .nav {{ padding:14px 20px; }} .nav-links {{ display:none; }} .page-header {{ padding:100px 20px 40px; }} .article-body {{ padding:32px 20px 60px; }} .footer-grid {{ grid-template-columns:1fr; }} .footer {{ padding:40px 20px 30px; }} .subscribe-banner-form {{ flex-direction:column; }} }}
 </style>
@@ -274,6 +282,19 @@ body {{ font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-seri
 <article class="article-body">
 {body_html}
 </article>
+<section class="share-related-section" style="max-width:740px;margin:0 auto;padding:0 24px 40px;">
+  <div class="share-bar" style="display:flex;gap:12px;align-items:center;justify-content:center;margin-bottom:32px;">
+    <a href="https://wa.me/?text=%F0%9F%90%BE%20{encoded_title}%20{encoded_url}" target="_blank" rel="noopener" class="share-btn whatsapp" style="display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:50px;background:#25D366;color:white;text-decoration:none;font-size:14px;font-weight:600;">📱 WhatsApp</a>
+    <a href="https://www.facebook.com/sharer/sharer.php?u={encoded_url}" target="_blank" rel="noopener" class="share-btn facebook" style="display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:50px;background:#1877F2;color:white;text-decoration:none;font-size:14px;font-weight:600;">📘 Facebook</a>
+    <button class="share-btn copy-link" onclick="navigator.clipboard.writeText('{encoded_url}');this.textContent='✅ 已複製';setTimeout(()=>this.textContent='📋 複製連結',2000)" style="display:inline-flex;align-items:center;gap:8px;padding:12px 24px;border-radius:50px;background:#f0f0f0;color:#333;border:none;font-size:14px;font-weight:600;cursor:pointer;">📋 複製連結</button>
+  </div>
+  <div class="related-articles">
+    <h3 style="font-size:18px;font-weight:700;margin-bottom:16px;color:var(--dark);">📖 相關文章</h3>
+    <div class="related-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;">
+      {related_links}
+    </div>
+  </div>
+</section>
 <section class="subscribe-banner" id="subscribe">
   <div class="subscribe-banner-inner">
     <h2>📬 接收更多養寵資訊</h2>
