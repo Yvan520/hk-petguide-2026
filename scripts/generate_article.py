@@ -49,18 +49,17 @@ def build_prompt(topic):
 - 日期：{today}
 
 ## 寫作要求
-1. **全文約 600-1000 個中文字**就夠，唔使太長。
+1. **全文約 1500-2500 個中文字**，要詳細啲，唔好求其寫幾句。
 2. 用香港粵語口吻（的→嘅、不→唔、們→哋、了→咗、那些→啲、還→仲、在→喺、看→睇、吃→食、找→搵、給→俾），自然啲。
-3. 3-4 個小標題（h2）就夠，唔使每段都加emoji開頭。
-4. 唔使刻意加FAQ、唔使加emoji圖案喺標題。
-5. 引用真實資料要自然融入內文，唔好硬塞。
-6. 文末簡單列出參考資料就得，用<a>連去真實網站（如SPCA、AFCD、AVMA）。
-7. 文章要讀落似真人分享經驗，有香港本地角度（例如：香港邊度有相關服務、大約幾錢）。
-8. 每段 3-5 句就夠，唔好太冗長。
-9. 唔好用「你可唔可以」、「你知唔知」呢啲常見AI開場白。
+3. 5-7 個小標題（h2）深入探討唔同角度。
+4. 絕對唔好加emoji喺標題前面，唔使FAQ格式，唔好用「你可唔可以」、「你知唔知」開頭。
+5. 引用真實資料要自然融入內文，講到價錢要講大約幾錢，講地點要講邊區。
+6. 文末簡單列出參考資料，用<a>連去真實網站（如SPCA、AFCD、AVMA）。
+7. 文章要讀落似真人分享經驗，有香港本地角度。
+8. 每段內容要充實，有具體例子同數據。
 
 ## 輸出格式
-就係 <body> 內嘅 HTML 內容直接用 <h2> 分 section，唔使花巧。範例：
+就係 <body> 內嘅 HTML 內容直接用 <h2> 分 section，唔使花巧。唔好用 ```html 或者任何 markdown code block 包住，直接畀 raw HTML 就得。範例：
 
 <h2>一個自然嘅小標題</h2>
 <p>內文內容⋯⋯</p>
@@ -92,6 +91,11 @@ def build_prompt(topic):
 """
 
 
+def strip_markdown_code_blocks(text):
+    text = re.sub(r'^```(?:html)?\s*\n?', '', text)
+    text = re.sub(r'\n?```\s*$', '', text)
+    return text
+
 def count_chinese(text):
     chinese_chars = re.findall(r'[\u4e00-\u9fff]', text)
     return len(chinese_chars)
@@ -107,14 +111,15 @@ def generate_article_content(prompt):
                 messages=[
                     {
                         "role": "system",
-                        "content": "你係PawCity HK嘅寵物編輯。用香港粵語寫原創寵物文章，自然啲似真人寫。引用真實來源。約600-1000字。",
+                        "content": "你係PawCity HK嘅寵物編輯。用香港粵語寫原創寵物文章，自然啲似真人寫，唔好有AI味。引用真實來源。約1500-2500字。唔好用markdown code block包住內容，直接畀HTML。",
                     },
                     {"role": "user", "content": prompt},
                 ],
-                max_tokens=4096,
+                max_tokens=8192,
                 temperature=0.8 + attempt * 0.1,
             )
-            content = resp.choices[0].message.content
+            raw_content = resp.choices[0].message.content
+            content = strip_markdown_code_blocks(raw_content)
         except Exception as e:
             print(f"  ↳ Attempt {attempt+1} failed: {type(e).__name__}")
             continue
@@ -123,10 +128,10 @@ def generate_article_content(prompt):
         if cnt > best_count:
             best_content = content
             best_count = cnt
-        if cnt >= 600:
+        if cnt >= 1200:
             print(f"  ✓ Length OK ({cnt} chars)")
             return content
-        print(f"  ✗ Too short ({cnt} < 600), retrying...")
+        print(f"  ✗ Too short ({cnt} < 1200), retrying...")
     if best_content:
         print(f"  ⚠ Best attempt: {best_count} chars (using anyway)")
         return best_content
