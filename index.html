@@ -3,6 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+if (location.protocol === 'http:') {
+  location.href = 'https:' + location.href.substring(5);
+}
+</script>
 <title>PawCity HK — 香港寵物資訊平台</title>
 <meta name="description" content="PawCity HK 我哋幫你搜羅全港最齊嘅寵物好去處地點、養寵貼士、法例須知同健康護理資訊，等你同毛孩喺香港生活得開心啲。">
 <link rel="canonical" href="https://pethome.gamewayz.com/">
