@@ -1553,11 +1553,11 @@ section { position: relative; z-index: 2; }
   </a>
   <ul class="nav-links">
     <li><a href="#hkpemap">🗺️ 寵物地圖</a></li>
-    <li><a href="places.html">寵物好去處</a></li>
-    <li><a href="knowledge.html">養寵資訊</a></li>
-    <li><a href="laws.html">法例須知</a></li>
-    <li><a href="health.html">健康護理</a></li>
-    <li><a href="events.html">活動資訊</a></li>
+    <li><a href="/places/">寵物好去處</a></li>
+    <li><a href="/info/">養寵資訊</a></li>
+    <li><a href="/laws/">法例須知</a></li>
+    <li><a href="/health/">健康護理</a></li>
+    <li><a href="/events/">活動資訊</a></li>
     <li><a href="#newsletter" class="nav-cta">訂閱我們</a></li>
   </ul>
   <button class="nav-mobile-btn" onclick="toggleMobileMenu()">
@@ -1569,11 +1569,11 @@ section { position: relative; z-index: 2; }
 <div class="mobile-menu" id="mobileMenu">
   <button class="mobile-menu-close" onclick="toggleMobileMenu()">✕</button>
   <a href="/" onclick="toggleMobileMenu()">🏠 首頁</a>
-  <a href="places.html" onclick="toggleMobileMenu()">🏬 寵物好去處</a>
-  <a href="knowledge.html" onclick="toggleMobileMenu()">📚 養寵資訊</a>
-  <a href="laws.html" onclick="toggleMobileMenu()">⚖️ 法例須知</a>
-  <a href="health.html" onclick="toggleMobileMenu()">💊 健康護理</a>
-  <a href="events.html" onclick="toggleMobileMenu()">🎉 活動資訊</a>
+  <a href="/places/" onclick="toggleMobileMenu()">🏬 寵物好去處</a>
+  <a href="/info/" onclick="toggleMobileMenu()">📚 養寵資訊</a>
+  <a href="/laws/" onclick="toggleMobileMenu()">⚖️ 法例須知</a>
+  <a href="/health/" onclick="toggleMobileMenu()">💊 健康護理</a>
+  <a href="/events/" onclick="toggleMobileMenu()">🎉 活動資訊</a>
 </div>
 
 <main>
@@ -1608,10 +1608,10 @@ section { position: relative; z-index: 2; }
       我哋幫你搜羅全港最齊嘅寵物好去處地點、養寵貼士、法例須知同健康護理資訊，等你同毛孩喺香港生活得開心啲。
     </p>
     <div class="hero-actions">
-      <a href="places.html" class="btn-primary">
+      <a href="/places/" class="btn-primary">
         🐕 揾寵物好去處
       </a>
-      <a href="knowledge.html" class="btn-secondary">
+      <a href="/info/" class="btn-secondary">
         📖 睇多啲
       </a>
     </div>
@@ -1700,7 +1700,7 @@ section { position: relative; z-index: 2; }
       <div class="category-pill-name">訓練技巧</div>
       <div class="category-pill-count">98篇</div>
     </a>
-    <a href="knowledge.html" class="category-pill">
+    <a href="/info/" class="category-pill">
       <div class="category-pill-icon bg-peach">✈️</div>
       <div class="category-pill-name">外遊資訊</div>
       <div class="category-pill-count">45篇</div>
@@ -1716,7 +1716,7 @@ section { position: relative; z-index: 2; }
     <p class="section-subtitle">緊貼香港寵物界最新消息、實用貼士同專家分享</p>
   </div>
   <div class="featured-grid">
-    <a href="article-puppy-home.html" class="featured-main">
+    <a href="/info/article/puppy-home/" class="featured-main">
       <img class="featured-main-img" src="https://images.unsplash.com/photo-1601758228041-f3b2795255f1?w=800&q=80" alt="幼犬" loading="lazy">
       <div class="featured-main-overlay">
         <div class="featured-main-tag">🔥 編輯推薦</div>
@@ -1731,7 +1731,7 @@ section { position: relative; z-index: 2; }
       </div>
     </a>
     <div class="featured-side">
-      <a href="article-cat-indoor-guide.html" class="featured-side-card">
+      <a href="/info/article/cat-indoor-guide/" class="featured-side-card">
         <div class="featured-side-img-wrapper">
           <img loading="lazy" class="featured-side-img" src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=300&q=80" alt="貓咪">
         </div>
@@ -1741,7 +1741,7 @@ section { position: relative; z-index: 2; }
           <p>📅 2026年5月22日</p>
         </div>
       </a>
-      <a href="article-dog-heatstroke.html" class="featured-side-card">
+      <a href="/info/article/dog-heatstroke/" class="featured-side-card">
         <div class="featured-side-img-wrapper">
           <img loading="lazy" class="featured-side-img" src="https://images.unsplash.com/photo-1547407139-3c921a66005c?w=300&q=80" alt="狗公園">
         </div>
@@ -1751,7 +1751,7 @@ section { position: relative; z-index: 2; }
           <p>📅 2026年5月25日</p>
         </div>
       </a>
-      <a href="article-homemade-pet-food.html" class="featured-side-card">
+      <a href="/info/article/homemade-pet-food/" class="featured-side-card">
         <div class="featured-side-img-wrapper">
           <img loading="lazy" class="featured-side-img" src="https://images.unsplash.com/photo-1583511655826-05700d52f4d9?w=300&q=80" alt="寵物營養">
         </div>
@@ -2381,7 +2381,7 @@ document.querySelectorAll('#placesTabs .places-tab').forEach(tab => {
     <button class="places-tab">🏖️ 戶外</button>
   </div>
   <div class="places-grid stagger-children" id="placesGrid">
-    <a href="place-noc.html" class="place-card" data-category="餐廳" data-place="noc">
+    <a href="/places/noc/" class="place-card" data-category="餐廳" data-place="noc">
       <div class="place-card-img">
         <img loading="lazy" src="https://images.unsplash.com/photo-1514933651103-005eec06c04b?w=600&q=80" alt="NOC Coffee Co.">
         <div class="place-card-badge">🍽️ 餐廳</div>
@@ -2399,7 +2399,7 @@ document.querySelectorAll('#placesTabs .places-tab').forEach(tab => {
         </div>
       </div>
     </a>
-    <a href="place-saigon-park.html" class="place-card" data-category="公園" data-place="saigon-park">
+    <a href="/places/saigon-park/" class="place-card" data-category="公園" data-place="saigon-park">
       <div class="place-card-img">
         <img loading="lazy" src="https://images.unsplash.com/photo-1591825729269-caeb344f6df2?w=600&q=80" alt="西貢寵物公園">
         <div class="place-card-badge">🌳 公園</div>
@@ -2417,7 +2417,7 @@ document.querySelectorAll('#placesTabs .places-tab').forEach(tab => {
         </div>
       </div>
     </a>
-    <a href="place-harbourcity.html" class="place-card" data-category="商場" data-place="harbourcity">
+    <a href="/places/harbourcity/" class="place-card" data-category="商場" data-place="harbourcity">
       <div class="place-card-img">
         <img loading="lazy" src="https://images.unsplash.com/photo-1560032779-0a8809186efd?w=600&q=80" alt="海港城">
         <div class="place-card-badge">🛍️ 商場</div>
@@ -2435,7 +2435,7 @@ document.querySelectorAll('#placesTabs .places-tab').forEach(tab => {
         </div>
       </div>
     </a>
-    <a href="place-huskly.html" class="place-card" data-category="餐廳" data-place="huskly">
+    <a href="/places/huskly/" class="place-card" data-category="餐廳" data-place="huskly">
       <div class="place-card-img">
         <img loading="lazy" src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=600&q=80" alt="Cafe Huskly">
         <div class="place-card-badge">🍽️ 餐廳</div>
@@ -2453,7 +2453,7 @@ document.querySelectorAll('#placesTabs .places-tab').forEach(tab => {
         </div>
       </div>
     </a>
-    <a href="place-peninsula.html" class="place-card" data-category="住宿" data-place="peninsula">
+    <a href="/places/peninsula/" class="place-card" data-category="住宿" data-place="peninsula">
       <div class="place-card-img">
         <img loading="lazy" src="https://images.unsplash.com/photo-1582719508461-905c673771fd?w=600&q=80" alt="半島酒店">
         <div class="place-card-badge">🏨 住宿</div>
@@ -2471,7 +2471,7 @@ document.querySelectorAll('#placesTabs .places-tab').forEach(tab => {
         </div>
       </div>
     </a>
-    <a href="place-taimei.html" class="place-card" data-category="戶外" data-place="taimei">
+    <a href="/places/taimei/" class="place-card" data-category="戶外" data-place="taimei">
       <div class="place-card-img">
         <img loading="lazy" src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=80" alt="大尾篤">
         <div class="place-card-badge">🏖️ 戶外</div>
@@ -2491,7 +2491,7 @@ document.querySelectorAll('#placesTabs .places-tab').forEach(tab => {
     </a>
   </div>
   <div style="text-align:center;margin-top:48px;">
-    <a href="places.html" class="btn-primary" style="display:inline-flex;">
+    <a href="/places/" class="btn-primary" style="display:inline-flex;">
       🐾 睇晒全部好去處
     </a>
   </div>
@@ -2553,7 +2553,7 @@ document.querySelectorAll('#placesTabs .places-tab').forEach(tab => {
       </div>
     </div>
     <div class="knowledge-content">
-      <a href="article-puppy-home.html" class="knowledge-card">
+      <a href="/info/article/puppy-home/" class="knowledge-card">
         <div class="knowledge-card-img">
           <img loading="lazy" src="https://images.unsplash.com/photo-1583512603805-3cc6b41f3edb?w=600&q=80" alt="小狗">
           <div class="knowledge-card-category">🐶 狗狗知識</div>
@@ -2567,7 +2567,7 @@ document.querySelectorAll('#placesTabs .places-tab').forEach(tab => {
           </div>
         </div>
       </a>
-      <a href="article-cat-body-language.html" class="knowledge-card">
+      <a href="/info/article/cat-body-language/" class="knowledge-card">
         <div class="knowledge-card-img">
           <img loading="lazy" src="https://images.unsplash.com/photo-1574231164645-d6f0e8553590?w=600&q=80" alt="貓咪">
           <div class="knowledge-card-category">😺 貓貓知識</div>
@@ -2581,7 +2581,7 @@ document.querySelectorAll('#placesTabs .places-tab').forEach(tab => {
           </div>
         </div>
       </a>
-      <a href="article-homemade-pet-food.html" class="knowledge-card">
+      <a href="/info/article/homemade-pet-food/" class="knowledge-card">
         <div class="knowledge-card-img">
           <img loading="lazy" src="https://images.unsplash.com/photo-1602491453631-e2a5ad90a131?w=600&q=80" alt="寵物營養">
           <div class="knowledge-card-category">🍖 寵物營養</div>
@@ -2595,7 +2595,7 @@ document.querySelectorAll('#placesTabs .places-tab').forEach(tab => {
           </div>
         </div>
       </a>
-      <a href="article-dog-training.html" class="knowledge-card">
+      <a href="/info/article/dog-training/" class="knowledge-card">
         <div class="knowledge-card-img">
           <img loading="lazy" src="https://images.unsplash.com/photo-1591769225440-811ad7d6eab3?w=600&q=80" alt="訓練">
           <div class="knowledge-card-category">🎯 行為訓練</div>
@@ -2610,7 +2610,7 @@ document.querySelectorAll('#placesTabs .places-tab').forEach(tab => {
         </div>
       </a>
       <div style="grid-column:1/-1;text-align:center;margin-top:12px;">
-        <a href="knowledge.html" class="btn-primary" style="display:inline-flex;">
+        <a href="/info/" class="btn-primary" style="display:inline-flex;">
           📚 睇晒全部文章
         </a>
       </div>
@@ -2626,7 +2626,7 @@ document.querySelectorAll('#placesTabs .places-tab').forEach(tab => {
     <p class="section-subtitle">作為負責任嘅寵物主人，了解香港嘅寵物法例係應有責任</p>
   </div>
   <div class="rules-grid stagger-children">
-    <a href="laws.html" class="rule-card" style="text-decoration:none;color:inherit;">
+    <a href="/laws/" class="rule-card" style="text-decoration:none;color:inherit;">
       <div class="rule-card-header">
         <div class="rule-card-icon red">📜</div>
         <h3>狗牌牌照規定</h3>
@@ -2638,7 +2638,7 @@ document.querySelectorAll('#placesTabs .places-tab').forEach(tab => {
         <span>強制</span>
       </div>
     </a>
-    <a href="laws.html" class="rule-card" style="text-decoration:none;color:inherit;">
+    <a href="/laws/" class="rule-card" style="text-decoration:none;color:inherit;">
       <div class="rule-card-header">
         <div class="rule-card-icon green">🏠</div>
         <h3>公屋養寵規定</h3>
@@ -2650,7 +2650,7 @@ document.querySelectorAll('#placesTabs .places-tab').forEach(tab => {
         <span>貓貓許可</span>
       </div>
     </a>
-    <a href="laws.html" class="rule-card" style="text-decoration:none;color:inherit;">
+    <a href="/laws/" class="rule-card" style="text-decoration:none;color:inherit;">
       <div class="rule-card-header">
         <div class="rule-card-icon gold">🚇</div>
         <h3>公共交通工具規則</h3>
@@ -2662,7 +2662,7 @@ document.querySelectorAll('#placesTabs .places-tab').forEach(tab => {
         <span>尺寸限制</span>
       </div>
     </a>
-    <a href="laws.html" class="rule-card" style="text-decoration:none;color:inherit;">
+    <a href="/laws/" class="rule-card" style="text-decoration:none;color:inherit;">
       <div class="rule-card-header">
         <div class="rule-card-icon sky">🌳</div>
         <h3>公眾地方遛狗規則</h3>
@@ -2676,7 +2676,7 @@ document.querySelectorAll('#placesTabs .places-tab').forEach(tab => {
     </a>
   </div>
   <div style="text-align:center;margin-top:48px;">
-    <a href="laws.html" class="btn-primary" style="display:inline-flex;background:rgba(255,255,255,0.1);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.25);">
+    <a href="/laws/" class="btn-primary" style="display:inline-flex;background:rgba(255,255,255,0.1);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.25);">
       ⚖️ 睇晒全部法例
     </a>
   </div>
@@ -2690,25 +2690,25 @@ document.querySelectorAll('#placesTabs .places-tab').forEach(tab => {
     <p class="section-subtitle">由專業獸醫團隊主理，為你提供最可靠嘅寵物健康資訊</p>
   </div>
   <div class="health-cards stagger-children">
-    <a href="health.html" class="health-card" style="text-decoration:none;color:inherit;">
+    <a href="/health/" class="health-card" style="text-decoration:none;color:inherit;">
       <div class="health-card-icon coral">💉</div>
       <h3>疫苗接種</h3>
       <p>了解貓狗每年需要打嘅疫苗，同埋最佳接種時間表</p>
       <span class="health-card-link">了解更多 →</span>
     </a>
-    <a href="health.html" class="health-card" style="text-decoration:none;color:inherit;">
+    <a href="/health/" class="health-card" style="text-decoration:none;color:inherit;">
       <div class="health-card-icon gold">🪥</div>
       <h3>日常護理</h3>
       <p>刷牙、梳毛、剪甲⋯⋯每日護理程序完整教學</p>
       <span class="health-card-link">了解更多 →</span>
     </a>
-    <a href="health.html" class="health-card" style="text-decoration:none;color:inherit;">
+    <a href="/health/" class="health-card" style="text-decoration:none;color:inherit;">
       <div class="health-card-icon sage">🥗</div>
       <h3>體重管理</h3>
       <p>寵物肥胖問題愈嚟愈普遍，教你點幫毛孩保持健康體態</p>
       <span class="health-card-link">了解更多 →</span>
     </a>
-    <a href="health.html" class="health-card" style="text-decoration:none;color:inherit;">
+    <a href="/health/" class="health-card" style="text-decoration:none;color:inherit;">
       <div class="health-card-icon sky">🏥</div>
       <h3>常見疾病</h3>
       <p>皮膚病、腸胃炎、關節問題⋯⋯教你分辨常見寵物病症</p>
@@ -2728,7 +2728,7 @@ document.querySelectorAll('#placesTabs .places-tab').forEach(tab => {
     <div class="event-item">
       <div class="event-dot"></div>
       <div class="event-spacer"></div>
-      <a href="events.html" class="event-card" style="text-decoration:none;color:inherit;">
+      <a href="/events/" class="event-card" style="text-decoration:none;color:inherit;">
         <div class="event-card-img">
           <img loading="lazy" src="https://images.unsplash.com/photo-1574158622682-e40e69881006?w=600&q=80" alt="Cat Workshop">
           <div class="event-date-badge">
@@ -2749,7 +2749,7 @@ document.querySelectorAll('#placesTabs .places-tab').forEach(tab => {
     <div class="event-item event-past">
       <div class="event-dot"></div>
       <div class="event-spacer"></div>
-      <a href="events.html" class="event-card" style="text-decoration:none;color:inherit;">
+      <a href="/events/" class="event-card" style="text-decoration:none;color:inherit;">
         <div class="event-card-img">
           <img loading="lazy" src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=600&q=80" alt="Pet Expo">
           <div class="event-date-badge">
@@ -2771,7 +2771,7 @@ document.querySelectorAll('#placesTabs .places-tab').forEach(tab => {
     <div class="event-item event-past">
       <div class="event-dot"></div>
       <div class="event-spacer"></div>
-      <a href="events.html" class="event-card" style="text-decoration:none;color:inherit;">
+      <a href="/events/" class="event-card" style="text-decoration:none;color:inherit;">
         <div class="event-card-img">
           <img loading="lazy" src="https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=600&q=80" alt="Dog Walk">
           <div class="event-date-badge">
@@ -2792,7 +2792,7 @@ document.querySelectorAll('#placesTabs .places-tab').forEach(tab => {
     </div>
   </div>
   <div style="text-align:center;margin-top:24px;">
-    <a href="events.html" class="btn-primary" style="display:inline-flex;">
+    <a href="/events/" class="btn-primary" style="display:inline-flex;">
       🎉 睇晒全部活動
     </a>
   </div>
@@ -2833,20 +2833,20 @@ document.querySelectorAll('#placesTabs .places-tab').forEach(tab => {
     <div class="footer-col">
       <h4>探索</h4>
       <ul>
-        <li><a href="places.html">寵物好去處地點</a></li>
-        <li><a href="knowledge.html">養寵資訊</a></li>
-        <li><a href="laws.html">法例須知</a></li>
-        <li><a href="health.html">健康護理</a></li>
-        <li><a href="events.html">活動資訊</a></li>
+        <li><a href="/places/">寵物好去處地點</a></li>
+        <li><a href="/info/">養寵資訊</a></li>
+        <li><a href="/laws/">法例須知</a></li>
+        <li><a href="/health/">健康護理</a></li>
+        <li><a href="/events/">活動資訊</a></li>
       </ul>
     </div>
     <div class="footer-col">
       <h4>資源</h4>
       <ul>
-        <li><a href="health.html">獸醫與健康</a></li>
+        <li><a href="/health/">獸醫與健康</a></li>
         <li><a href="nutrition.html">寵物營養</a></li>
-        <li><a href="article-hk-adoption-data-2026.html">領養資訊</a></li>
-        <li><a href="laws.html">寵物移民法例</a></li>
+        <li><a href="/info/article/hk-adoption-data-2026/">領養資訊</a></li>
+        <li><a href="/laws/">寵物移民法例</a></li>
         <li><a href="common-diseases.html">常見疾病</a></li>
       </ul>
     </div>
